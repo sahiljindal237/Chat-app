@@ -13,9 +13,18 @@ import ImageBtnModal from './ImageBtnModal';
 const renderFileMessage = file => {
   if (file.contentType.includes('image')) {
     return (
-      <div className="h-220">
+      <div className="height-220">
         <ImageBtnModal src={file.url} fileName={file.name} />
       </div>
+    );
+  }
+
+  if (file.contentType.includes('audio')) {
+    return (
+      <audio controls>
+        <source src={file.url} type="audio/mp3" />
+        Desktop does not support the file
+      </audio>
     );
   }
 
@@ -81,7 +90,7 @@ const MessageItem = ({ message, handleAdmin, handleLike, handleDelete }) => {
             iconName="trash2"
             tooltip="Delete this message"
             onClick={() => {
-              handleDelete(message.id);
+              handleDelete(message.id, file);
             }}
           />
         )}

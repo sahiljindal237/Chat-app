@@ -38,11 +38,11 @@ const AttachmentBtnModal = ({ afterUpload }) => {
       });
       const uploadSnapshots = await Promise.all(uploadPromises);
 
-      const shapePromises = uploadPromises.map(async snap => {
+      const shapePromises = uploadSnapshots.map(async snap => {
         return {
-          contentType: (await snap).metadata.contentType,
-          name: (await snap).metadata.name,
-          url: (await snap).ref.getDownloadURL(),
+          contentType: snap.metadata.contentType,
+          name: snap.metadata.name,
+          url: await snap.ref.getDownloadURL(),
         };
       });
       const files = await Promise.all(shapePromises);
